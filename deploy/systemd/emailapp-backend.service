@@ -1,0 +1,15 @@
+[Unit]
+Description=Stackly Email App FastAPI Backend
+After=network.target mysql.service
+
+[Service]
+User=ubuntu
+Group=ubuntu
+WorkingDirectory=/opt/emailapp/backend
+EnvironmentFile=/opt/emailapp/backend/.env
+ExecStart=/opt/emailapp/venv/bin/uvicorn main:app --host 0.0.0.0 --port 8000
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target
