@@ -16,7 +16,7 @@ pipeline {
             steps {
                 sh '''
                 ssh -o StrictHostKeyChecking=no ubuntu@172.31.28.31 "mkdir -p /home/ubuntu/app"
-                rsync -avz -e "ssh -o StrictHostKeyChecking=no" ./ ubuntu@172.31.28.31:/home/ubuntu/app/
+                rsync -avz --exclude '.git' --exclude 'node_modules' -e "ssh -o StrictHostKeyChecking=no" ./ ubuntu@172.31.28.31:/home/ubuntu/app/
                 '''
             }
         }
@@ -24,12 +24,12 @@ pipeline {
         stage('Backend Setup') {
             steps {
                 sh '''
-                ssh -o StrictHostKeyChecking=no ubuntu@172.31.28.31 << 'EOF'
-                cd /home/ubuntu/app/backend
-                python3 -m venv venv
-                . venv/bin/activate
+                ssh -o StrictHostKeyChecking=no ubuntu@172.31.28.31 "
+                cd /home/ubuntu/app/backend &&
+                python3 -m venv venv &&
+                . venv/bin/activate &&
                 pip install -r requirements.txt
-                EOF
+                "
                 '''
             }
         }
