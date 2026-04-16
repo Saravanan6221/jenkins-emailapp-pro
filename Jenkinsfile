@@ -6,6 +6,7 @@ pipeline {
             steps {
                 dir('frontend') {
                     sh 'npm install'
+                    sh 'chmod +x node_modules/.bin/vite'
                     sh 'npm run build'
                 }
             }
