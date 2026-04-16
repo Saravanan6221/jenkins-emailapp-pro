@@ -33,5 +33,16 @@ pipeline {
                 '''
             }
         }
+
+        stage('Restart Services') {
+            steps {
+                sh '''
+                ssh -o StrictHostKeyChecking=no ubuntu@172.31.28.31 "
+                sudo systemctl restart emailapp-backend &&
+                sudo systemctl restart nginx
+                "
+                '''
+            }
+        }
     }
 }
