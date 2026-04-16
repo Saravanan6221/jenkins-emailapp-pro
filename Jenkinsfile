@@ -2,13 +2,6 @@ pipeline {
     agent any
 
     stages {
-
-        stage('Checkout') {
-            steps {
-                git 'https://github.com/Saravanan6221/jenkins-emailapp-pro.git'
-            }
-        }
-
         stage('Frontend Build') {
             steps {
                 dir('frontend') {
@@ -39,6 +32,5 @@ pipeline {
                 '''
             }
         }
-
     }
 }
